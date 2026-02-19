@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Mahoraga Dashboard</title>
+
+    <!-- CSS -->
+     <link rel="stylesheet" href="../css/components/user.css">
+    <link rel="stylesheet" href="../css/base/reset.css">
+    <link rel="stylesheet" href="../css/layout/dashboard.css">
+    <link rel="stylesheet" href="../css/components/buttons.css">
+    <link rel="stylesheet" href="../css/features/roadmap.css">
+    <link rel="stylesheet" href="../css/features/interview.css">
+</head>
+
+<body>
+
+
+    <header>
+        <img  class="logo" src="../img/assent/logo.png" alt="logo">
+    </header>
+
+    <div class="dashboard">
+
+        <!-- ================= SIDEBAR ================= -->
+        <aside class="sidebar">
+
+            <button class="tech-btn user-section">
+
+                <div class="user-avatar">
+                    <img src="../img/assent/camara.png" alt="user">
+                </div>
+
+                <div class="user-info">
+                    <p class="username">Name User</p>
+                    <div class="levels">
+                        <span class="user-level">Junior Developer</span>
+                    </div>
+                </div>
+            </button>
+
+
+            <div class="technologies">
+                <button class="tech-btn python">
+                    <img src="../img/assent/python.png" alt="logo-python" class="logo-python">
+                    <span>Python</span>
+                    <span class="percent">0%</span>
+                </button>
+
+                <button class="tech-btn css active">
+                    <img src="../img/assent/CSS.png" alt="logo-css" class="logo-css">
+                    <span>CSS</span>
+                    <span class="percent">0%</span>
+                </button>
+
+                <button class="tech-btn html">
+                    <img src="../img/assent/HTML.png" alt="logo-html" class="logo-html">
+                    <span>HTML</span>
+                    <span class="percent">0%</span>
+                </button>
+
+                <button class="tech-btn javascript">
+                    <img src="../img/assent/JavaScript.png" alt="logo-javascript" class="logo-javascript">
+                    <span>JS</span>
+                    <span class="percent">0%</span>
+                </button>
+            </div>
+
+        </aside>
+    <!-- ============== FIN SIDEBAR ================= -->
+
+
+    <!-- ================= ROADMAP ================= -->
+    <main class="roadmap-container">
+
+        <div class="roadmap-viewport">
+
+            <div class="roadmap-world">
+
+                <!-- conexiones svg -->
+                <svg class="connections"></svg>
+
+                <!-- nodos -->
+                <div class="nodes-layer">
+                    <!-- Los nodos se crearán con JS -->
+                </div>
+
+            </div>
+
+        </div>
+
+    </main>
+    <!-- ============== FIN ROADMAP ================= -->
+
+
+    <!-- ================= DETAIL PANEL ================= -->
+    <section class="detail-panel">
+
+        <div class="detail-card">
+
+            <div class="detail-header">
+                <h2 class="detail-title">CSS GRID</h2>
+                <button class="close-panel">✕</button>
+            </div>
+
+            <div class="difficulty-section">
+                <h4>Difficulty</h4>
+
+                <div class="difficulty-item">
+                    <span>Junior</span>
+                    <div class="bar junior"></div>
+                </div>
+
+                <div class="difficulty-item">
+                    <span>Mid</span>
+                    <div class="bar mid"></div>
+                </div>
+
+                <div class="difficulty-item">
+                    <span>Senior</span>
+                    <div class="bar senior"></div>
+                </div>
+            </div>
+
+            <div class="topics-section">
+                <h4>Topics</h4>
+                <ul class="topics-list">
+                    <li>Grid container and grid items</li>
+                    <li>Grid-template-columns / rows</li>
+                    <li>Grid-gap and gap</li>
+                    <li>Grid areas and template areas</li>
+                    <li>Implicit vs explicit grid</li>
+                </ul>
+            </div>
+
+            <div class="detail-footer">
+                <button class="interview-btn">
+                    Interview →
+                </button>
+            </div>
+
+        </div>
+
+    </section>
+    <!-- ============== FIN DETAIL PANEL ================= -->
+
+</div>
+
+<!-- JS -->
+<script type="module" src="../js/main.js"></script>
+
+</body>
+</html>
