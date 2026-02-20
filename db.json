@@ -17,6 +17,15 @@
       "id_status": "is_active",
       "id_level": "Junior",
       "id_language": "Es"
+    },
+    {
+      "id": "fa9b",
+      "user_name": "tomas2",
+      "email": "",
+      "password": "123456",
+      "id_status": "true",
+      "id_level": "Junior",
+      "id_language": "espanish"
     }
   ]
 }
