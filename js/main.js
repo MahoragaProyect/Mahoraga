@@ -1,16 +1,17 @@
-import { activateTechnology } from "./ui/dashboardRenderer.js";
-import { renderRoadmap } from "./ui/roadmapRenderer.js";
-import { gameState } from "./state/gameState.js";
 
-document.addEventListener("DOMContentLoaded", () => {
+import { initParallax } from './parallax.js';
+import { initSmoothScroll } from './navigation.js';
+import { initCarousel } from './carousel.js';
+import { initAuthModal } from './modal.js';
 
-    const pythonBtn = document.querySelector(".tech-btn.python");
+initCarousel();
 
-    pythonBtn.addEventListener("click", () => {
-        activateTechnology("python");
-        renderRoadmap();
+initParallax();
 
-        console.log("Tecnologia actual: ", gameState.currentTechnology);
-    });
+initSmoothScroll();
 
+document.addEventListener('DOMContentLoaded', () => {
+    initAuthModal();
+    console.log('Mahoraga - All systems initialized ');
 });
+
