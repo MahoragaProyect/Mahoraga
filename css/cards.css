@@ -27,10 +27,11 @@
 }
 
 .cards-materias {
+
     position: relative;
     display: flex;
     justify-content: center;
-    margin-top: 5rem;
+    margin-top: 5.1rem;
 }
 
 
