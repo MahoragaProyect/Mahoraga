@@ -1,6 +1,8 @@
-
+import{createUser, UserCreateDTO} from '../conect/createUser.js'
+import {getUsers} from '../conect/readUser.js'
 import { validateUsername, validatePassword, showAlert } from './validation.js';
 
+getUsers(); // First we bring in all the users to avoid errors, then
 export function initAuthModal() {
     const authModal = document.getElementById('authModal');
     const authWrapper = document.getElementById('authWrapper');
@@ -177,105 +179,122 @@ export function initAuthModal() {
         });
     }
 
-    if (loginForm) {
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+  if (loginForm) {
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-            const username = document.getElementById('loginUser').value.trim();
-            const password = document.getElementById('loginPass').value;
+        const usernameOrEmail = document.getElementById('loginUser').value.trim();
+        const password = document.getElementById('loginPass').value;
 
-            const usernameError = validateUsername(username);
-            if (usernameError) {
-                showAlert(loginForm, usernameError, 'error');
+        // Validaciones básicas
+        const usernameError = validateUsername(usernameOrEmail);
+        if (usernameError) {
+            showAlert(loginForm, usernameError, 'error');
+            return;
+        }
+
+        const passwordError = validatePassword(password);
+        if (passwordError) {
+            showAlert(loginForm, passwordError, 'error');
+            return;
+        }
+
+        try {
+            // Get all users from the API
+            const users = await getUsers();
+
+            // Search user to name or email
+            const user = users.find(u => u.user_name === usernameOrEmail || u.email === usernameOrEmail);
+
+            if (!user) {
+                showAlert(loginForm, 'User not found', 'error');
                 return;
             }
 
-            const passwordError = validatePassword(password);
-            if (passwordError) {
-                showAlert(loginForm, passwordError, 'error');
+            if (user.password !== password) {
+                showAlert(loginForm, 'Incorrect password', 'error');
                 return;
             }
 
-            const users = JSON.parse(localStorage.getItem('mahoraga_users')) || [];
-            const user = users.find(u => u.username === username && u.password === password);
+            // Login success
+            showAlert(loginForm, `Welcome, ${user.user_name}!`, 'success');
 
-            if (user) {
-                showAlert(loginForm, 'Login successful! Welcome back.', 'success');
-                
-                localStorage.setItem('mahoraga_session', JSON.stringify({
-                    username: user.username,
-                    loginTime: new Date().toISOString()
-                }));
+            // save data in localStorage to persist session
+            sessionStorage.setItem('loggedInUser', JSON.stringify(user));
 
-                setTimeout(() => {
-                    closeModal();
-                    console.log('Logged in as:', username);
-                }, 1500);
-            } else {
-                showAlert(loginForm, 'Invalid username or password', 'error');
-            }
+            // redirect to dashboard
+            setTimeout(() => {
+                window.location.href = './pages/dashboard.html'; // Cambia por tu página real
+            }, 1500);
+
+        } catch (error) {
+            console.error(error);
+            showAlert(loginForm, 'Error logging in. Try again later.', 'error');
+        }
+    });
+}
+   if (registerForm) {
+    registerForm.addEventListener('submit', async (e) => {
+        e.preventDefault(); // avoid recharge the page
+
+        const username = document.getElementById('registerUser').value.trim();
+        const email = document.getElementById('registerEmail')?.value.trim() || '';
+        const password = document.getElementById('registerPass').value;
+        const confirmPassword = document.getElementById('registerConfirm').value;
+
+        // Validations
+        const usernameError = validateUsername(username);
+        if (usernameError) {
+            showAlert(registerForm, usernameError, 'error');
+            return;
+        }
+
+        const passwordError = validatePassword(password);
+        if (passwordError) {
+            showAlert(registerForm, passwordError, 'error');
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            showAlert(registerForm, 'Passwords do not match', 'error');
+            return;
+        }
+
+        // Create DTO
+        const userDTO = new UserCreateDTO({
+            user_name: username,
+            email: email,
+            password: password
         });
-    }
 
-    if (registerForm) {
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
+        try {
+            // call Api to create new user
+            const newUser = await createUser(userDTO);
 
-            const username = document.getElementById('registerUser').value.trim();
-            const password = document.getElementById('registerPass').value;
-            const confirmPassword = document.getElementById('registerConfirm').value;
-
-            const usernameError = validateUsername(username);
-            if (usernameError) {
-                showAlert(registerForm, usernameError, 'error');
-                return;
-            }
-
-            const passwordError = validatePassword(password);
-            if (passwordError) {
-                showAlert(registerForm, passwordError, 'error');
-                return;
-            }
-
-            if (password !== confirmPassword) {
-                showAlert(registerForm, 'Passwords do not match', 'error');
-                return;
-            }
-
-            const users = JSON.parse(localStorage.getItem('mahoraga_users')) || [];
-            const userExists = users.find(u => u.username === username);
-
-            if (userExists) {
-                showAlert(registerForm, 'Username already exists', 'error');
-                return;
-            }
-
-            const newUser = {
-                username: username,
-                password: password,
-                createdAt: new Date().toISOString()
-            };
-
-            users.push(newUser);
-            localStorage.setItem('mahoraga_users', JSON.stringify(users));
-
+            // Mostrar mensaje de éxito
             showAlert(registerForm, 'Account created successfully!', 'success');
             registerForm.reset();
 
+            // Después de 2 segundos, cambiar a login
             setTimeout(() => {
                 switchToLoginView();
             }, 2000);
-        });
-    }
 
+        } catch (error) {
+            console.error(error);
+            showAlert(registerForm, 'Error creating account. Try again later.', 'error');
+        }
+    });
+}
+    // Add simple animation for input focus
     const inputs = document.querySelectorAll('.input-group input');
     inputs.forEach(input => {
         input.addEventListener('focus', function() {
-            this.parentElement.style.transform = 'translateY(-2px)';
+            this.parentElement.style.transform = 'translateY(-2px)'; // move input up a bit
         });
 
         input.addEventListener('blur', function() {
-            this.parentElement.style.transform = 'translateY(0)';
+            this.parentElement.style.transform = 'translateY(0)'; // move input back
         });
     });
-}
+};

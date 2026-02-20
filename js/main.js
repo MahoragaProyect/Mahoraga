@@ -12,5 +12,6 @@ initSmoothScroll();
 
 document.addEventListener('DOMContentLoaded', () => {
     initAuthModal();
-    console.log('Mahoraga - All systems initialized ✨');
+    console.log('Mahoraga - All systems initialized ');
 });
+
