@@ -1,6 +1,6 @@
 import{createUser, UserCreateDTO} from '../conect/createUser.js'
 import {getUsers} from '../conect/readUser.js'
-import { validateUsername, validatePassword, showAlert } from './validation.js';
+import { validateUsername, validatePassword, showAlert } from '../landingPageJs/validation.js';
 
 getUsers(); // First we bring in all the users to avoid errors, then
 export function initAuthModal() {
