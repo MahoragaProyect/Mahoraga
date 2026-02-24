@@ -1,4 +1,11 @@
 export const gameState = {
-    currentTechnology: null,
-    completedNodes: []
+  currentTechnology: "",
+
+  progress: {
+    python: [],
+    html: [],
+    css: [],
+    javascript: [],
+    sql: []
+  }
 };
