@@ -53,6 +53,10 @@
     background: #f7de1ec5;
 }
 
+.sql:hover {
+    background: #293c92ad;
+}
+
 /* BACKGROUND BOTONES */
 
 .python {
@@ -69,6 +73,10 @@
 
 .javascript {
     background: #f7de1e86;
+}
+
+.sql {
+    background: #293d9273;
 }
 
 /* TEXTO */

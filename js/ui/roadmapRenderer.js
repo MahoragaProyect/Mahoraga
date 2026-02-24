@@ -2,11 +2,10 @@ import { pythonMap } from "../data/maps/pythonMap.js";
 import { htmlMap } from "../data/maps/htmlMap.js";
 import { cssMap } from "../data/maps/cssMap.js";
 import { javascriptMap } from "../data/maps/javaScriptMap.js";
+import { sqlMap } from "../data/maps/sqlMap.js";
 import { gameState } from "../state/gameState.js";
 
 function getCurrentMap() {
-
-    console.log("Mapa actual", gameState.currentTechnology);
     switch (gameState.currentTechnology) {
         case "python":
             return pythonMap;
@@ -16,6 +15,8 @@ function getCurrentMap() {
             return cssMap;
         case "javascript":
             return javascriptMap;
+        case "sql":
+            return sqlMap;
         default:
             return [];
     }
@@ -29,22 +30,40 @@ export function renderRoadmap() {
     layer.innerHTML = "";
     svg.innerHTML = "";
 
-    pythonMap.forEach(nodeData => {
+    const currentMap = getCurrentMap();
+    console.log("Mapa Actual:", gameState.currentTechnology);
+
+    if (!currentMap.length) return;
+
+    const maxX = Math.max(...currentMap.map(n => n.x)) + 200;
+    const maxY = Math.max(...currentMap.map(n => n.y)) + 200;
+
+    layer.style.width = maxX + "px";
+    layer.style.height = maxY + "px";
+
+    svg.setAttribute("width", maxX);
+    svg.setAttribute("height", maxY);
+
+    currentMap.forEach(nodeData => {
 
         const node = document.createElement("div");
         node.classList.add("node");
 
         node.style.left = nodeData.x + "px";
         node.style.top = nodeData.y + "px";
-
         node.textContent = nodeData.title;
 
-        const completed = gameState.completedNodes.includes(nodeData.id);
+        node.style.borderColor = getNodeColor(nodeData.difficulty);
+
+        const techProgress =
+          gameState.progress[gameState.currentTechnology];
+
+        const completed = techProgress.includes(nodeData.id);
 
         if (!nodeData.requires) {
             node.classList.add("available");
         } 
-        else if (gameState.completedNodes.includes(nodeData.requires)) {
+        else if (techProgress.includes(nodeData.requires)) {
             node.classList.add("available");
         } 
         else {
@@ -57,25 +76,23 @@ export function renderRoadmap() {
         }
 
         node.addEventListener("click", () => {
-
             if (node.classList.contains("locked")) return;
-
             console.log("Nodo seleccionado:", nodeData.id);
         });
 
         layer.appendChild(node);
 
-        drawConnection(svg, nodeData);
+        drawConnection(svg, nodeData, currentMap, techProgress);
 
     });
-
 }
 
-function drawConnection(svg, nodeData) {
+function drawConnection(svg, nodeData, currentMap, techProgress) {
 
     if (!nodeData.requires) return;
 
-    const prev = pythonMap.find(n => n.id === nodeData.requires);
+    const prev = currentMap.find(n => n.id === nodeData.requires);
+    if (!prev) return;
 
     const offset = 45;
 
@@ -88,17 +105,24 @@ function drawConnection(svg, nodeData) {
 
     line.setAttribute("stroke-width", "3");
 
-    /* ========= AQUI VA LO NUEVO ========= */
-
-    if (gameState.completedNodes.includes(prev.id)) {
+    if (techProgress.includes(prev.id)) {
         line.setAttribute("stroke", "#2ecc71");
     } else {
         line.setAttribute("stroke", "#444");
     }
 
-    /* ===================================== */
-
     svg.appendChild(line);
 }
 
-
+function getNodeColor(difficulty) {
+  switch (difficulty) {
+    case "basic":
+      return "#4CAF50";
+    case "intermediate":
+      return "#FFC107";
+    case "advanced":
+      return "#F44336";
+    default:
+      return "#999";
+  }
+}
