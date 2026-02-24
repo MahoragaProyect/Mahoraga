@@ -26,6 +26,15 @@
       "id_status": "true",
       "id_level": "Junior",
       "id_language": "espanish"
+    },
+    {
+      "id": "98b4",
+      "user_name": "daniel",
+      "email": "",
+      "password": "123456",
+      "id_status": "true",
+      "id_level": "Junior",
+      "id_language": "espanish"
     }
   ]
 }

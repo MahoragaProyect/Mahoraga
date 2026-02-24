@@ -3,6 +3,47 @@ import { renderRoadmap } from "./ui/roadmapRenderer.js";
 import { gameState } from "./state/gameState.js";
 import { initPhotoProfile } from "./data/profile/modalProfile.js";
 
+const container = document.querySelector(".roadmap-container");
+
+let isDragging = false;
+let startX, startY;
+let scrollLeft, scrollTop;
+
+container.addEventListener('mousedown', (e) => {
+  isDragging = true;
+  container.classList.add("active");
+
+  startX = e.pageX - container.offsetLeft;
+  startY = e.pageY - container.offsetTop;
+
+  scrollLeft = container.scrollLeft;
+  scrollTop = container.scrollTop;
+});
+
+container.addEventListener("mouseleave", () =>  {
+  isDragging = false;
+});
+
+container.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+container.addEventListener("mousemove", (e) => {
+  if (!isDragging) return;
+
+  e.preventDefault();
+
+  const x = e.pageX - container.offsetLeft;
+  const y = e.pageY - container.offsettop;
+
+  const walkX = (x - startX);
+  const walkY = (y - startY);
+
+  container.scrollLeft = scrollLeft - walkX;
+  container.scrollTop = scrollTop - walkY;
+
+});
+
 document.addEventListener("DOMContentLoaded", () => {
 
     // Inicializar módulo de foto de perfil

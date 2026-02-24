@@ -44,9 +44,10 @@ body {
 
 .roadmap-container {
     flex: 1;
+    width: 100%;
     position: relative;
     overflow-x: auto;
-    overflow-y: hidden;
+    overflow-y: relative;
     background-color: #0f0f0f;
 }
 
