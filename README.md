@@ -183,3 +183,21 @@ CREATE TABLE question_translation (
         REFERENCES language (id_language)
 
 );
+
+estructura para crear la preguntas en el thuder client
+
+{
+  "id_topic": 2,
+  "id_level": 2,
+  "level_assign": "nivel 2",
+  "translations": [
+    {
+      "id_language": 1,
+      "question_text": "¿Cuáles son las etiquetas semánticas en HTML?"
+    },
+    {
+      "id_language": 2,
+      "question_text": "What are semantic tags in HTML?"
+    }
+  ]
+}
