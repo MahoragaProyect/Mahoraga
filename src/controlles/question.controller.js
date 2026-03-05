@@ -19,7 +19,7 @@ export const createQuestionRequest = async (req, res) => {
             error: 'Debes enviar id_topic, id_level, level_assign y translations (array no vacio).'
         })
     }
-     const hasInvalidTranslation = translations.some(
+        const hasInvalidTranslation = translations.some(
         (item) => !item.id_language || !item.question_text
     )
     if (hasInvalidTranslation) {
