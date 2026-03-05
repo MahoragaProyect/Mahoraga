@@ -17,7 +17,7 @@ export const getUsers = async () =>{
 export const createUsers = async (user_name, email, password, user_status, id_language, id_level) => {
     const query = `
     INSERT INTO "user"
-    (User_name, email, password, user_status, id_leguage, id_level) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
+    (User_name, email, password, user_status, id_language, id_level) VALUES ($1, $2, $3, $4, $5, $6) RETURNING *`;
     const values = [user_name, email, password, user_status, id_language, id_level];
 
     try {

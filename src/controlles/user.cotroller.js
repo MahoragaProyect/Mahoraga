@@ -13,27 +13,17 @@ export const getUsersReq = async (req, res) => {
 }
 
 export const createUsersReq = async (req, res) => {
-    const { user_name, email, password, user_status, id_language, id_leguage, id_level } = req.body
-    const languageId = id_language ?? id_leguage
+    const { user_name, email, password, user_status, id_language, id_level } = req.body
 
     const missingFields = []
     if (user_name === undefined || user_name === null || String(user_name).trim() === '') missingFields.push('user_name')
     if (email === undefined || email === null || String(email).trim() === '') missingFields.push('email')
     if (password === undefined || password === null || String(password).trim() === '') missingFields.push('password')
-    if (user_status === undefined || user_status === null || String(user_status).trim() === '') missingFields.push('user_status')
-    if (languageId === undefined || languageId === null || String(languageId).trim() === '') missingFields.push('id_language')
-    if (id_level === undefined || id_level === null || String(id_level).trim() === '') missingFields.push('id_level')
 
     if (missingFields.length > 0) {
         return res.status(400).json({
             error: 'Error submitting user, you must complete all fields',
             missingFields
-        })
-    }
-
-    if (typeof user_status !== 'boolean') {
-        return res.status(400).json({
-            error: 'user_status must be boolean (true/false)'
         })
     }
         try{
@@ -42,7 +32,7 @@ export const createUsersReq = async (req, res) => {
                 email,
                 password,
                 user_status,
-                languageId,
+                id_language,
                 id_level
             )
             res.status(201).json({
