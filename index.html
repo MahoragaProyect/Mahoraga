@@ -7,18 +7,18 @@
     <meta name="description" content="Mahoraga - Prepare for technical software interviews with AI-powered training and personalized feedback">
     <meta name="keywords" content="technical interviews, software development, AI training, programming skills">
     <title>Mahoraga</title>
-    <link rel="icon" type="image/png" href="./img/logo.png">
-    <link rel="stylesheet" href="./landingPage/main.css">
+    <link rel="icon" type="image/png" href="./public/img/logo.png">
+    <link rel="stylesheet" href="./public/landingPage/main.css">
 
 </head>
 
 <body>
-    <img class="shine" src="./img/shine.png" alt="Decorative shine effect">
+    <img class="shine" src="./public/img/shine.png" alt="Decorative shine effect">
 
     <header>
         <section class="container-logo">
             <div class="logo">
-                <img src="./img/logo.png" alt="Mahoraga Logo">
+                <img src="./public/img/logo.png" alt="Mahoraga Logo">
             </div>
             
             <h2>Mahoraga</h2>
@@ -57,7 +57,7 @@
         </article>
 
         <article class="interfaz">
-            <img src="./img/5f9c19f5-1973-4817-9638-a35a08896607.avif" alt="Mahoraga platform interface preview">
+            <img src="./public/img/5f9c19f5-1973-4817-9638-a35a08896607.avif" alt="Mahoraga platform interface preview">
         </article>
 
         <section class="container-materias" id="skills-container">
@@ -113,7 +113,7 @@
                         <li>Writing: emails, reports, pull requests</li>
                     </ul>
                     
-                    <img src="./img/puntos.png" alt="Decorative dots">
+                    <img src="./public/img/puntos.png" alt="Decorative dots">
                 </div>
 
                 <div class="card-alfa card">
@@ -128,7 +128,7 @@
                         <li>Programming and algorithms</li>
                     </ul>
                     
-                    <img src="./img/puntos.png" alt="Decorative dots">
+                    <img src="./public/img/puntos.png" alt="Decorative dots">
                 </div>
 
                 <div class="card card-left">
@@ -143,13 +143,13 @@
                         <li>Time management</li>
                     </ul>
                     
-                    <img src="./img/puntos.png" alt="Decorative dots">
+                    <img src="./public/img/puntos.png" alt="Decorative dots">
                 </div>
             </article>
 
         </section>
             <div class="separador">
-                <img src="./img/mahoraga.png" alt="Mahoraga mascot logo" class="mahoragaLogo">
+                <img src="./public/img/mahoraga.png" alt="Mahoraga mascot logo" class="mahoragaLogo">
             </div>
 
             <article class="about" id="aboutUs">
@@ -181,25 +181,25 @@
                 <div class="we">
                     <div class="column column-up" id="columnUp">
                         <div class="cardWe">
-                            <img src="./assets/juancho.jpeg" alt="Team member - Juancho">
+                            <img src="./public/assets/juancho.jpeg" alt="Team member - Juancho">
                         </div>
                         <div class="cardWe">
-                            <img src="./assets/tomas.jpeg" alt="Team member - Tomas">
+                            <img src="./public/assets/tomas.jpeg" alt="Team member - Tomas">
                         </div>
                         <div class="cardWe">
-                            <img src="./assets/toty.jpeg" alt="Team member - Toty">
+                            <img src="./public/assets/toty.jpeg" alt="Team member - Toty">
                         </div>
                     </div>
 
                     <div class="column column-down" id="columnDown">
                         <div class="cardWe">
-                            <img src="./assets/danny.jpeg" alt="Team member - Danny">
+                            <img src="./public/assets/danny.jpeg" alt="Team member - Danny">
                         </div>
                         <div class="cardWe">
-                            <img src="./assets/diego.jpeg" alt="Team member - Diego">
+                            <img src="./public/assets/diego.jpeg" alt="Team member - Diego">
                         </div>
                         <div class="cardWe">
-                            <img src="./assets/jose.jpeg" alt="Team member - Jose">
+                            <img src="./public/assets/jose.jpeg" alt="Team member - Jose">
                         </div>
                     </div>
                 </div>
@@ -266,7 +266,7 @@
                     <div class="brand-logo">
                         <div class="logo-circle">
                             
-                            <span><img class="logoLogin" src="./img/logo.png" alt=""></span>
+                            <span><img class="logoLogin" src="./public/img/logo.png" alt=""></span>
                         </div>
                         <h1 id="h1Mahoraga">Mahoraga</h1>
                     </div>
@@ -288,12 +288,12 @@
 
                     <form id="loginForm" class="auth-form">
                         <div class="input-group">
-                            <label for="loginUser">Username</label>
-                            <input 
+                            <label for="loginPass">Email</label>
+                               <input 
                                 type="text" 
-                                id="loginUser" 
-                                placeholder="Enter your username"
-                                autocomplete="username"
+                                id="registerUserEmail" 
+                                placeholder="Your Email"
+                                autocomplete="email"
                                 required 
                             />
                         </div>
@@ -336,6 +336,21 @@
                                 id="registerUser" 
                                 placeholder="Choose a username"
                                 autocomplete="username"
+                                required 
+                            />
+                
+                        </div>
+
+                          <div class="input-group">
+                            <label for="registerUser">Email</label>
+                           
+                            
+
+                             <input 
+                                type="text" 
+                                id="registerUserEmail" 
+                                placeholder="Your Email"
+                                autocomplete="email"
                                 required 
                             />
                         </div>
@@ -383,9 +398,8 @@
         </div>
     </div>
 
-
     
-    <script type="module" src="./js/features/landing/main.js"></script>
+    <script type="module" src="./public/js/features/landing/main.js"></script>
 
 </body>
 
