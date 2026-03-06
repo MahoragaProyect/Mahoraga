@@ -4,13 +4,24 @@ import { fileURLToPath } from 'url'
 import questionRoutes from './modules/questions/question.route.js'
 import userRoutes from './modules/users/user.route.js'
 
+
+const express = require('express');
 const app = express()
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
+
+
+
+
+app.use(express.static('index.html')); // tu carpeta HTML/JS
 
 app.use(express.json())
 app.use(express.static(path.join(__dirname, '../public')))
 app.use('/questions', questionRoutes)
 app.use('/users', userRoutes)
 
+// Resto de tu código de configuración y rutas
+app.listen(process.env.PORT || 3000, () => {
+  console.log('App corriendo');
+});
 export default app
