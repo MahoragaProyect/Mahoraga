@@ -28,3 +28,19 @@ export const createUsers = async (user_name, email, password, user_status, id_la
         throw error;
     }
 }
+
+
+export const loginUserQuery = async (l_login, l_password)=>{
+    const query = `
+    SELECT validate_login($1, $2) AS is_valid
+    `
+    const values = [l_login, l_password]
+
+    try {
+        const response = await pool.query(query, values)
+        return Boolean(response.rows[0]?.is_valid)
+    }catch (error){
+        console.error(`error, data cannot be accessed`);
+        throw error;
+    }
+}

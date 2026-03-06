@@ -1,4 +1,4 @@
-import { createUsers, getUsers } from './user.service.js'
+import { createUsers, getUsers, loginUserQuery } from './user.service.js'
 
 export const getUsersReq = async (req, res) => {
     try{
@@ -43,4 +43,29 @@ export const createUsersReq = async (req, res) => {
             res.status(500).json({error: error.message})
         }
     
+}
+
+export const loginUserReq = async (req, res) => {
+    const { login, password } = req.body
+
+    const missingFields = []
+    if (login === undefined || login === null || String(login).trim() === '') missingFields.push('login')
+    if (password === undefined || password === null || String(password).trim() === '') missingFields.push('password')
+
+    if (missingFields.length > 0) {
+        return res.status(400).json({
+            error: 'Login validation requires both login and password',
+            missingFields
+        })
+    }
+
+    try{
+        const isValid = await loginUserQuery(login, password)
+        res.status(200).json({ isValid })
+    }catch(error){
+        console.error('Error validating login', error)
+        res.status(500).json({
+            error: 'Error, data cannot be accessed'
+        })
+    }
 }
