@@ -1,7 +1,7 @@
 import { activateTechnology } from "./ui/dashboardRenderer.js";
 import { renderRoadmap } from "./ui/roadmapRenderer.js";
 import { gameState } from "./state/gameState.js";
-import { initPhotoProfile } from "./data/profile/modalProfile.js";
+import { initPhotoProfile } from "../shared/data/profile/modalProfile.js";
 
 const container = document.querySelector(".roadmap-container");
 

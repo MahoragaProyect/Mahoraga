@@ -1,8 +1,8 @@
-import { pythonMap } from "../data/maps/pythonMap.js";
-import { htmlMap } from "../data/maps/htmlMap.js";
-import { cssMap } from "../data/maps/cssMap.js";
-import { javascriptMap } from "../data/maps/javaScriptMap.js";
-import { sqlMap } from "../data/maps/sqlMap.js";
+import { pythonMap } from "../../shared/data/maps/pythonMap.js";
+import { htmlMap } from "../../shared/data/maps/htmlMap.js";
+import { cssMap } from "../../shared/data/maps/cssMap.js";
+import { javascriptMap } from "../../shared/data/maps/javaScriptMap.js";
+import { sqlMap } from "../../shared/data/maps/sqlMap.js";
 import { gameState } from "../state/gameState.js";
 
 function getCurrentMap() {

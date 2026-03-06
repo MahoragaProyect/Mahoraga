@@ -1,4 +1,4 @@
-import { pool } from '../config/dbconfig.js'
+import { pool } from '../../config/db.config.js'
 
 export const consultationQuestion = async () => {
     try{
