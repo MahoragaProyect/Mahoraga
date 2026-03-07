@@ -62,9 +62,14 @@ body {
 
 .roadmap-world {
     position: relative;
-    width: 2000px; /* grande para scroll horizontal */
+    width: 4000px; /* grande para scroll horizontal */
     height: 100%;
+    background-image: url('../img/shine.png');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
 }
+
 /* ===================================== */
 /* DETAIL PANEL */
 /* ===================================== */
@@ -164,4 +169,16 @@ body {
 
 .detail-footer {
     margin-top: auto;
+}
+
+.close-panel{
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.detail-title{
+           font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }

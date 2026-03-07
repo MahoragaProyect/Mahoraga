@@ -33,7 +33,7 @@
     cursor: pointer;
     overflow: hidden;
     transition: 0.3s ease;
-    border: 3px solid rgb(255, 255, 255);
+
 
 
 }
@@ -109,8 +109,9 @@ input:hover{
 h2 {
     color: white;
     font-weight: 300;
-    text-decoration: underline;
-    text-underline-offset: 8px; /* ajusta este valor a tu gusto */
+           font-family: "Ubuntu", sans-serif;
+    font-weight: 500;
+    font-style: normal;
 }
 
 .exitLogo{

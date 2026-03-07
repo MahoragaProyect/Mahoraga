@@ -5,6 +5,7 @@ export function initPhotoProfile() {
   const photoInput = document.getElementById("photoInput");
   const deleteBtn = document.querySelector(".delete");
   const cameraIcon = document.querySelector(".camera-icon");
+  const userAvatar = document.querySelector(".user-avatar");
 
   if (!photoContainer || !photoInput || !deleteBtn || !cameraIcon) return;
 
@@ -15,6 +16,12 @@ export function initPhotoProfile() {
     photoContainer.style.backgroundImage = `url(${savedPhoto})`;
     photoContainer.classList.add("has-image");
     cameraIcon.style.display = "none";
+    
+    // Actualizar avatar en la tarjeta de perfil
+    if (userAvatar) {
+      userAvatar.style.backgroundImage = `url(${savedPhoto})`;
+      userAvatar.classList.add("has-image");
+    }
   }
 
   // Click en contenedor
@@ -38,6 +45,12 @@ export function initPhotoProfile() {
         photoContainer.classList.add("has-image");
         cameraIcon.style.display = "none";
 
+        // Actualizar avatar en la tarjeta de perfil
+        if (userAvatar) {
+          userAvatar.style.backgroundImage = `url(${imageBase64})`;
+          userAvatar.classList.add("has-image");
+        }
+
         localStorage.setItem(STORAGE_KEY, imageBase64);
       };
 
@@ -52,6 +65,12 @@ export function initPhotoProfile() {
     photoContainer.style.backgroundImage = "";
     photoContainer.classList.remove("has-image");
     cameraIcon.style.display = "block";
+
+    // Eliminar avatar en la tarjeta de perfil
+    if (userAvatar) {
+      userAvatar.style.backgroundImage = "";
+      userAvatar.classList.remove("has-image");
+    }
 
     localStorage.removeItem(STORAGE_KEY);
   });

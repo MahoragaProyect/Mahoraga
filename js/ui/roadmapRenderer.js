@@ -37,8 +37,10 @@ export function renderRoadmap() {
 
     if (!currentMap.length) return;
 
-    const maxX = Math.max(...currentMap.map(n => n.x)) + 200;
-    const maxY = Math.max(...currentMap.map(n => n.y)) + 200;
+    const SCALE_FACTOR = 1.8; // Factor de escala para distribuir mejor los nodos
+
+    const maxX = Math.max(...currentMap.map(n => n.x)) * SCALE_FACTOR + 200;
+    const maxY = Math.max(...currentMap.map(n => n.y)) * SCALE_FACTOR + 200;
 
     layer.style.width = maxX + "px";
     layer.style.height = maxY + "px";
@@ -51,8 +53,8 @@ export function renderRoadmap() {
         const node = document.createElement("div");
         node.classList.add("node");
 
-        node.style.left = nodeData.x + "px";
-        node.style.top = nodeData.y + "px";
+        node.style.left = (nodeData.x * SCALE_FACTOR) + "px";
+        node.style.top = (nodeData.y * SCALE_FACTOR) + "px";
         node.textContent = nodeData.title;
 
         node.style.borderColor = getNodeColor(nodeData.difficulty);
@@ -90,12 +92,12 @@ export function renderRoadmap() {
 
         layer.appendChild(node);
 
-        drawConnection(svg, nodeData, currentMap, techProgress);
+        drawConnection(svg, nodeData, currentMap, techProgress, SCALE_FACTOR);
 
     });
 }
 
-function drawConnection(svg, nodeData, currentMap, techProgress) {
+function drawConnection(svg, nodeData, currentMap, techProgress, SCALE_FACTOR) {
 
     if (!nodeData.requires) return;
 
@@ -106,10 +108,10 @@ function drawConnection(svg, nodeData, currentMap, techProgress) {
 
     const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
 
-    line.setAttribute("x1", prev.x + offset);
-    line.setAttribute("y1", prev.y + offset);
-    line.setAttribute("x2", nodeData.x + offset);
-    line.setAttribute("y2", nodeData.y + offset);
+    line.setAttribute("x1", (prev.x * SCALE_FACTOR) + offset);
+    line.setAttribute("y1", (prev.y * SCALE_FACTOR) + offset);
+    line.setAttribute("x2", (nodeData.x * SCALE_FACTOR) + offset);
+    line.setAttribute("y2", (nodeData.y * SCALE_FACTOR) + offset);
 
     line.setAttribute("stroke-width", "3");
 
