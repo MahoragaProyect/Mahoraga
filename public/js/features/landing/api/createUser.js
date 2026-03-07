@@ -17,7 +17,7 @@ export class UserCreateDTO {
   }
 }
 export async function createUser(userDTO) {
-  const response = await fetch('http://localhost:3000/users', {  // change URL to JSON Server
+  const response = await fetch('/users', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
