@@ -18,19 +18,8 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(rootDir, 'index.html'))
 })
 
-//app.use(express.static('index.html')); // tu carpeta HTML/JS
-
-
-//app.use(express.static(path.join(__dirname, '../public')))
 app.use('/questions', questionRoutes)
 app.use('/users', userRoutes)
 
-
-
-
-// Resto de tu código de configuración y rutas
-app.listen(process.env.PORT || 3000, () => {
-  console.log('App corriendo');
-});
 
 export default app
