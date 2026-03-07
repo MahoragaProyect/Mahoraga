@@ -4,9 +4,9 @@ export class UserCreateDTO {
     user_name,
     email,
     password,
-    id_status = "true",   //Value for default
+    id_status = true,   //Value for default
     id_level = "Junior",
-    id_language = "espanish"
+    id_language = "spanish"
   }) {
     this.user_name = user_name;
     this.email = email;

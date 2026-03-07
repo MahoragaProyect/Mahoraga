@@ -4,6 +4,7 @@ import { cssMap } from "../data/maps/cssMap.js";
 import { javascriptMap } from "../data/maps/javaScriptMap.js";
 import { sqlMap } from "../data/maps/sqlMap.js";
 import { gameState } from "../state/gameState.js";
+import { openLevelDetail } from "./viewManager.js";
 
 function getCurrentMap() {
     switch (gameState.currentTechnology) {
@@ -26,6 +27,7 @@ export function renderRoadmap() {
 
     const layer = document.querySelector(".nodes-layer");
     const svg = document.querySelector(".connections");
+    if (!layer || !svg) return;
 
     layer.innerHTML = "";
     svg.innerHTML = "";
@@ -78,6 +80,12 @@ export function renderRoadmap() {
         node.addEventListener("click", () => {
             if (node.classList.contains("locked")) return;
             console.log("Nodo seleccionado:", nodeData.id);
+
+            openLevelDetail({
+                nodeData,
+                totalNodes: currentMap.length,
+                completedNodes: techProgress.length
+            });
         });
 
         layer.appendChild(node);
