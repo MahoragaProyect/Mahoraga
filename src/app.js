@@ -26,7 +26,7 @@ app.use('/questions', questionRoutes)
 app.use('/users', userRoutes)
 
 
-const PORT = process.env.PORT || 3000
+
 
 // Resto de tu código de configuración y rutas
 app.listen(process.env.PORT || 3000, () => {
