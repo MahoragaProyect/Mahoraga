@@ -25,6 +25,17 @@
         <!-- ================= SIDEBAR ================= -->
         <aside class="sidebar">
 
+            <button class="hamburger-toggle" title="Toggle Sidebar">
+                <lord-icon
+                    class="icon-menu"
+                    src="../json-icons/system-solid-35-compare-hover-compare (1).json"
+                    trigger="morph"
+                    state="in"
+                    colors="primary:#2ecc71"
+                    style="width:32px;height:32px;">
+                </lord-icon>
+            </button>
+
             <button title="Profile" class="user-section">
 
                 <div class="user-avatar">
@@ -88,7 +99,7 @@
 
         <div class="roadmap-viewport">
 
-            <div class="roadmap-world">
+            <div class="roadmap-world" id="roadmapWorld">
 
                 <!-- conexiones svg -->
                 <svg class="connections"></svg>
@@ -99,6 +110,44 @@
                 </div>
 
             </div>
+
+            <!-- ================= CHAT VIEW ================= -->
+            <div class="chat-world" id="chatWorld" style="display: none;">
+                <div class="chat-container">
+                    <div class="chat-header">
+                        <h3 class="chat-title">Interview Mode</h3>
+                        <button class="chat-close-btn" id="closeChatBtn" title="Close Chat">
+                            <lord-icon
+                                src="../json-icons/system-solid-29-cross-hover-cross-1.json"
+                                trigger="hover"
+                                colors="primary:#ffffff"
+                                style="width:28px;height:28px;">
+                            </lord-icon>
+                        </button>
+                    </div>
+                    
+                    <div class="chat-messages" id="chatMessages">
+                        <!-- Los mensajes aparecerán aquí -->
+                    </div>
+                    
+                    <div class="chat-input-area">
+                        <input 
+                            type="text" 
+                            id="chatInput" 
+                            class="chat-input" 
+                            placeholder="Type your answer..."
+                            autocomplete="off">
+                        <button class="chat-send-btn" id="chatSendBtn">
+                            <lord-icon
+                                src="../json-icons/system-solid-161-arrow-long-right-hover-ternd-flat-1 (1).json"
+                                trigger="hover"
+                                style="width:28px;height:28px;">
+                            </lord-icon>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- ================= FIN CHAT VIEW ================= -->
 
         </div>
 
@@ -150,7 +199,13 @@
 
             <div class="detail-footer">
                 <button class="interview-btn">
-                    Interview →
+                    <span>Interview</span>
+                    <lord-icon
+                       src="../json-icons/system-solid-47-chat-hover-chat.json"
+                       trigger="hover"
+                       colors="primary:#ffffff"
+                       style="width:28px;height:28px;">
+                    </lord-icon>
                 </button>
             </div>
                
@@ -316,3 +371,4 @@
 <!-- JS -->
 <script type="module" src="../js/mainDashboard.js"></script>
 <script type="module" src="../js/themeManager.js"></script>
+<script src="../js/interview.js"></script>

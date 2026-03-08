@@ -144,3 +144,17 @@
     border-radius: 6px;
 }
 
+/* COLLAPSED SIDEBAR */
+.sidebar.collapsed .technologies {
+    opacity: 0;
+    visibility: hidden;
+    width: 0;
+    overflow: hidden;
+}
+
+.sidebar.collapsed .tech-btn {
+    width: auto;
+    padding: 0;
+    margin: 0;
+}
+

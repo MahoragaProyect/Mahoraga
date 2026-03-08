@@ -46,6 +46,24 @@ if (container) {
 
 document.addEventListener("DOMContentLoaded", () => {
 
+  // ===== SIDEBAR TOGGLE =====
+  const hamburgerBtn = document.querySelector(".hamburger-toggle");
+  const sidebar = document.querySelector(".sidebar");
+  const roadmapContainer = document.querySelector(".roadmap-container");
+
+  if (hamburgerBtn && sidebar) {
+    hamburgerBtn.addEventListener("click", () => {
+      sidebar.classList.toggle("collapsed");
+      roadmapContainer.classList.toggle("sidebar-collapsed");
+      
+      // Cambiar estado del icono
+      const icon = hamburgerBtn.querySelector(".icon-menu");
+      if (icon) {
+        icon.setState(sidebar.classList.contains("collapsed") ? "out" : "in");
+      }
+    });
+  }
+
   // Inicializar módulo de foto de perfil
   initPhotoProfile();
   initDetailPanel();

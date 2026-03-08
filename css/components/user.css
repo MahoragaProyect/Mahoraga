@@ -3,7 +3,7 @@
     background-color: var(--bg-tertiary);
     align-items: center;
     gap: 12px;
-
+    margin-top: 80px;
     padding: 12px;
     border-radius: 14px;
     border: 1px solid var(--border-color);
@@ -12,11 +12,20 @@
     transition: all 0.3s ease;
     color: var(--text-primary);
     box-shadow: 0 4px 12px var(--shadow-color);
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .user-section:hover {
     background: var(--bg-secondary);
     transform: translateX(6px) scale(1.02);
+}
+
+.sidebar.collapsed .user-section {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+    pointer-events: none;
 }
 
 /* IMAGEN */
@@ -72,5 +81,17 @@
 
 .logo-sql {
     width: 50px;
+}
+
+/* COLLAPSED SIDEBAR */
+.sidebar.collapsed .user-info {
+    display: none;
+}
+
+.sidebar.collapsed .user-section {
+    justify-content: center;
+    padding: 12px;
+    margin-top: 0;
+    margin-bottom: 20px;
 }
 
