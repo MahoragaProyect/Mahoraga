@@ -64,21 +64,23 @@
 /* ESTADOS */
 
 .node.locked {
-    background: #2a2a2a;
+    background: var(--node-locked, #2a2a2a);
     opacity: 0.8;
     cursor: not-allowed;
 }
 
 .node.available {
-    background: #1e5fa8;
-    box-shadow: 0 0 15px rgba(30, 95, 168, 0.5);
+    background: var(--node-available, #1e5fa8);
 }
 
 .node.completed {
-    background: #2ecc71;
-    box-shadow: 0 0 20px rgba(46, 204, 113, 0.6);
+    background: var(--node-completed, #2ecc71);
 }
 
 .node:hover:not(.locked) {
     transform: scale(1.1);
+}
+
+.node:active:not(.locked) {
+    transform: scale(0.95);
 }

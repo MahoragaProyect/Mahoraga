@@ -2,16 +2,52 @@
 /* BASE LAYOUT */
 /* ===================================== */
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+/* ANIMACIONES DE ENTRADA */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes fadeInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
 *{
           font-family: "Ubuntu", sans-serif;
-    font-weight: 500;
+    font-weight: 700;
     font-style: normal;
 }
 body {
     margin: 0;
     font-family: Arial, sans-serif;
-    background-color: #0f0f0f;
-    color: white;
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    
 }
 
 /* CONTENEDOR PRINCIPAL */
@@ -21,6 +57,7 @@ body {
     height: 100vh;
     position: relative;
     overflow: hidden;
+    animation: fadeInDown 0.6s ease-out;
 }
 
 
@@ -30,11 +67,31 @@ body {
 
 .sidebar {
     width: 260px;
-    background-color: #141414;
+    background-color: var(--bg-tertiary);
     display: flex;
     flex-direction: column;
     padding: 20px;
     box-sizing: border-box;
+    position: relative;
+          
+    font-weight: 700;
+    animation: fadeInLeft 0.7s ease-out 0.2s both;
+}
+
+.sidebar-settings {
+    position: absolute;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.sidebar-settings:hover {
+    transform: scale(1.15);
+    filter: brightness(1.2);
 }
 
 
@@ -48,7 +105,8 @@ body {
     position: relative;
     overflow-x: auto;
     overflow-y: relative;
-    background-color: #0f0f0f;
+    background-color: var(--bg-primary);
+    animation: fadeInRight 0.7s ease-out 0.3s both;
 }
 
 /* viewport interno */
@@ -80,8 +138,8 @@ body {
     right: -420px; /* oculto fuera de pantalla */
     width: 420px;
     height: 100%;
-    background-color: #1a1a1a;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.6);
+    background-color: var(--bg-secondary);
+    box-shadow: -10px 0 30px var(--shadow-color);
     transition: right 0.4s ease;
     z-index: 10;
 }
@@ -101,8 +159,23 @@ body {
     flex-direction: column;
     height: 100%;
     box-sizing: border-box;
+    gap: 16px;
 }
 
+/* CONTENEDOR CLÁSICO */
+
+.detail-container {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 18px;
+    transition: all 0.3s ease;
+}
+
+.detail-container:hover {
+    background: rgba(255, 255, 255, 0.08);
+    border-color: var(--border-color);
+}
 
 /* HEADER */
 
@@ -110,33 +183,49 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-bottom: 8px;
+}
+
+.detail-title {
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 700;
+    font-size: 18px;
+    color: var(--text-primary);
+    margin: 0;
 }
 
 .technology-progress-section {
-    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .technology-progress-meta {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    margin-bottom: 0;
 }
 
 .technology-progress-meta h4 {
     margin: 0;
-    font-size: 14px;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .technology-progress-percent {
     font-size: 14px;
-    color: #f0c040;
+    font-weight: 700;
+    color: var(--accent-primary);
 }
 
 .technology-progress-track {
     width: 100%;
     height: 8px;
-    background: #2a2a2a;
+    background: rgba(0, 0, 0, 0.3);
     border-radius: 999px;
     overflow: hidden;
 }
@@ -144,41 +233,111 @@ body {
 .technology-progress-fill {
     width: 0;
     height: 100%;
-    background: linear-gradient(90deg, #2ecc71, #18a058);
-    transition: width 0.3s ease;
+    background: linear-gradient(90deg, var(--accent-primary), var(--accent-tertiary));
+    transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .topics-section {
-    margin-top: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
 }
 
 .topics-section h4 {
-    margin-bottom: 8px;
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .topics-list {
     margin: 0;
-    padding-left: 18px;
+    padding: 0;
     display: grid;
     gap: 8px;
-    color: #ddd;
+    color: var(--text-secondary);
+    font-size: 12px;
 }
 
+.topics-list li {
+    list-style: none;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.2);
+    border-left: 3px solid var(--accent-primary);
+    border-radius: 4px;
+    transition: all 0.2s ease;
+}
 
-/* FOOTER */
+.topics-list li:hover {
+    background: rgba(46, 204, 113, 0.1);
+    transform: translateX(4px);
+}
 
 .detail-footer {
-    margin-top: auto;
+    display: flex;
+    gap: 10px;
 }
 
-.close-panel{
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
+.interview-btn {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+    border: none;
+    border-radius: 10px;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    box-shadow: 0 6px 16px rgba(46, 204, 113, 0.3);
+    position: relative;
+    overflow: hidden;
 }
 
-.detail-title{
-           font-family: "Ubuntu", sans-serif;
-    font-weight: 500;
-    font-style: normal;
+.interview-btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.5s ease;
+    z-index: -1;
+}
+
+.interview-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(46, 204, 113, 0.4);
+    background: linear-gradient(135deg, var(--accent-primary), var(--accent-tertiary));
+    filter: brightness(1.1);
+}
+
+.interview-btn:hover::before {
+    left: 100%;
+}
+
+.interview-btn:active {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(46, 204, 113, 0.3);
+}
+
+.close-panel {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    border-radius: 0;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-panel:hover {
+    filter: brightness(1.2);
 }

@@ -4,10 +4,12 @@
     <meta charset="UTF-8">
     <title>Mahoraga Dashboard</title>
     <script src="https://cdn.lordicon.com/lordicon.js"></script>
+      <link rel="icon" type="image/png" href="../img/logo.png">
 
     <!-- CSS -->
      <link rel="stylesheet" href="../css/components/user.css">
     <link rel="stylesheet" href="../css/base/reset.css">
+    <link rel="stylesheet" href="../css/features/theme.css">
     <link rel="stylesheet" href="../css/layout/dashboard.css">
     <link rel="stylesheet" href="../css/components/buttons.css">
     <link rel="stylesheet" href="../css/features/roadmap.css">
@@ -69,6 +71,14 @@
                 </button>
             </div>
 
+            <div class="sidebar-settings">
+                <lord-icon
+                       src="../json-icons/system-solid-63-settings-cog-hover-cog-3.json"
+                       trigger="hover"
+                         colors="primary:#ffffff"
+                       style="width:35px;height:35px;">
+                   </lord-icon>
+            </div>
         </aside>
     <!-- ============== FIN SIDEBAR ================= -->
 
@@ -113,25 +123,29 @@
                 </button>
             </div>
 
-            <div class="technology-progress-section">
-                <div class="technology-progress-meta">
-                    <h4>Technology Progress</h4>
-                    <span class="technology-progress-percent">0%</span>
-                </div>
-                <div class="technology-progress-track">
-                    <div class="technology-progress-fill"></div>
+            <div class="detail-container">
+                <div class="technology-progress-section">
+                    <div class="technology-progress-meta">
+                        <h4>Technology Progress</h4>
+                        <span class="technology-progress-percent">0%</span>
+                    </div>
+                    <div class="technology-progress-track">
+                        <div class="technology-progress-fill"></div>
+                    </div>
                 </div>
             </div>
 
-            <div class="topics-section">
-                <h4>Topics</h4>
-                <ul class="topics-list">
-                    <li>Grid container and grid items</li>
-                    <li>Grid-template-columns / rows</li>
-                    <li>Grid-gap and gap</li>
-                    <li>Grid areas and template areas</li>
-                    <li>Implicit vs explicit grid</li>
-                </ul>
+            <div class="detail-container">
+                <div class="topics-section">
+                    <h4>Topics</h4>
+                    <ul class="topics-list">
+                        <li>Grid container and grid items</li>
+                        <li>Grid-template-columns / rows</li>
+                        <li>Grid-gap and gap</li>
+                        <li>Grid areas and template areas</li>
+                        <li>Implicit vs explicit grid</li>
+                    </ul>
+                </div>
             </div>
 
             <div class="detail-footer">
@@ -139,8 +153,11 @@
                     Interview →
                 </button>
             </div>
-
+               
+            
         </div>
+
+
 
     </section>
     <!-- ============== FIN DETAIL PANEL ================= -->
@@ -170,7 +187,12 @@
 
             <article class="exit-profile">
                 <div class="exitLogo">
-                    <i class="bi bi-x"></i>
+                   <lord-icon
+                       src="../json-icons/system-solid-29-cross-hover-cross-1.json"
+                       trigger="hover"
+                         colors="primary:#ffffff"
+                       style="width:45px;height:45px;">
+                   </lord-icon>
                 </div>
             </article>
 
@@ -247,8 +269,50 @@
             </div>
         </section>
     </div>
+
+    <!-- ================= SETTINGS MODAL ================= -->
+    <div class="settings-modal-overlay" id="settingsOverlay">
+        <div class="settings-modal">
+            <div class="settings-header">
+                <h2>Settings</h2>
+                <button class="settings-close">
+                    <lord-icon
+                        src="../json-icons/system-solid-29-cross-hover-cross-1.json"
+                        trigger="hover"
+                        colors="primary:#ffffff"
+                        style="width:28px;height:28px;">
+                    </lord-icon>
+                </button>
+            </div>
+
+            <div class="settings-content">
+                <div class="settings-section">
+                    <h3>Theme</h3>
+                    <div class="theme-buttons">
+                        <button class="theme-btn dark-theme active" data-theme="dark">
+                            <i class="bi bi-moon-fill"></i>
+                            <span>Dark</span>
+                        </button>
+                        <button class="theme-btn light-theme" data-theme="light">
+                            <i class="bi bi-sun-fill"></i>
+                            <span>Light</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="settings-divider"></div>
+
+                <div class="settings-section">
+                    <button class="logout-btn">
+                        <i class="bi bi-box-arrow-right"></i>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ============== FIN SETTINGS MODAL ================= -->
+
 <!-- JS -->
 <script type="module" src="../js/mainDashboard.js"></script>
-
-</body>
-</html>
+<script type="module" src="../js/themeManager.js"></script>

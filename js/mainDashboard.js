@@ -72,9 +72,13 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   function closeModal() {
-    modal.classList.remove("active");
-    backdrop.classList.remove("active");
-    document.body.style.overflow = "";
+    modal.classList.add("closing");
+    setTimeout(() => {
+      modal.classList.remove("active");
+      modal.classList.remove("closing");
+      backdrop.classList.remove("active");
+      document.body.style.overflow = "";
+    }, 300);
   }
 
   // Abrir modal al hacer click en el botón
