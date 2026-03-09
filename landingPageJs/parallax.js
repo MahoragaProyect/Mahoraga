@@ -1,4 +1,3 @@
-
 export function initParallax() {
     const slogan = document.querySelector(".slogan");
     const interfaz = document.querySelector(".interfaz");
