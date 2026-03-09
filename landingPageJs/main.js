@@ -14,3 +14,4 @@ document.addEventListener('DOMContentLoaded', () => {
     initAuthModal();
     console.log('Mahoraga - All systems initialized ');
 });
+

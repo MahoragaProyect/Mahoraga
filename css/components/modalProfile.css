@@ -390,7 +390,7 @@
   backdrop-filter: blur(4px);
   opacity: 0;
   z-index: 1000;
-  transition: opacity 0.3s ease;
+  transition: 0.3s ease;
   display: none;
 }
 

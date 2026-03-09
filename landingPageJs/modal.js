@@ -1,6 +1,11 @@
 import { createUser, UserCreateDTO, loginUser } from './authApi.js'
 import { validateUsername, validatePassword, validateLoginIdentifier, showAlert } from './validation.js';
 
+import{createUser, UserCreateDTO} from '../conect/createUser.js'
+import {getUsers} from '../conect/readUser.js'
+import { validateUsername, validatePassword, showAlert } from '../landingPageJs/validation.js';
+
+getUsers(); // First we bring in all the users to avoid errors, then
 export function initAuthModal() {
     const authModal = document.getElementById('authModal');
     const authWrapper = document.getElementById('authWrapper');
@@ -194,6 +199,16 @@ export function initAuthModal() {
         }
 
         // Esta validacion reutiliza tu regla de password antes de llamar al backend.
+        const usernameOrEmail = document.getElementById('loginUser').value.trim();
+        const password = document.getElementById('loginPass').value;
+
+        // Validaciones básicas
+        const usernameError = validateUsername(usernameOrEmail);
+        if (usernameError) {
+            showAlert(loginForm, usernameError, 'error');
+            return;
+        }
+
         const passwordError = validatePassword(password);
         if (passwordError) {
             showAlert(loginForm, passwordError, 'error');
@@ -205,6 +220,19 @@ export function initAuthModal() {
             const { isValid, user } = await loginUser(usernameOrEmail, password);
             if (!isValid || !user) {
                 showAlert(loginForm, 'Credenciales invalidas', 'error');
+            // Get all users from the API
+            const users = await getUsers();
+
+            // Search user to name or email
+            const user = users.find(u => u.user_name === usernameOrEmail || u.email === usernameOrEmail);
+
+            if (!user) {
+                showAlert(loginForm, 'User not found', 'error');
+                return;
+            }
+
+            if (user.password !== password) {
+                showAlert(loginForm, 'Incorrect password', 'error');
                 return;
             }
 
@@ -212,6 +240,7 @@ export function initAuthModal() {
             showAlert(loginForm, `Welcome, ${user.user_name}!`, 'success');
 
             // Este sessionStorage guarda lo que retorno backend para mantener sesion.
+            // save data in localStorage to persist session
             sessionStorage.setItem('loggedInUser', JSON.stringify(user));
 
             // redirect to dashboard
