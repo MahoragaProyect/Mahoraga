@@ -1,29 +1,19 @@
 {
   "name": "mahoraga",
   "version": "1.0.0",
-  "description": "CREATE TYPE user_status_enum AS ENUM (     'active',     'inactive',     'banned' );",
+  "description": "...",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/MahoragaProyect/Mahoraga.git"
+  "engines": {
+    "node": ">=18.0.0"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
   "type": "module",
-  "bugs": {
-    "url": "https://github.com/MahoragaProyect/Mahoraga/issues"
-  },
-  "homepage": "https://github.com/MahoragaProyect/Mahoraga#readme",
   "dependencies": {
     "dotenv": "^17.3.1",
     "express": "^5.2.1",
-    "node": "^25.7.0",
     "pg": "^8.19.0"
-  },
-  "devDependencies": {}
+  }
 }
