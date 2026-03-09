@@ -1,3 +1,6 @@
+import { createUser, UserCreateDTO, loginUser } from './authApi.js'
+import { validateUsername, validatePassword, validateLoginIdentifier, showAlert } from './validation.js';
+
 import{createUser, UserCreateDTO} from '../conect/createUser.js'
 import {getUsers} from '../conect/readUser.js'
 import { validateUsername, validatePassword, showAlert } from '../landingPageJs/validation.js';
@@ -183,6 +186,19 @@ export function initAuthModal() {
     loginForm.addEventListener('submit', async (e) => {
         e.preventDefault();
 
+        // Este valor sale del input del front con id="loginUser" en index.html.
+        const usernameOrEmail = document.getElementById('loginUser').value.trim();
+        // Este valor sale del input del front con id="loginPass" en index.html.
+        const password = document.getElementById('loginPass').value;
+
+        // Esta validacion acepta email valido o username valido para login.
+        const identifierError = validateLoginIdentifier(usernameOrEmail);
+        if (identifierError) {
+            showAlert(loginForm, identifierError, 'error');
+            return;
+        }
+
+        // Esta validacion reutiliza tu regla de password antes de llamar al backend.
         const usernameOrEmail = document.getElementById('loginUser').value.trim();
         const password = document.getElementById('loginPass').value;
 
@@ -200,6 +216,10 @@ export function initAuthModal() {
         }
 
         try {
+            // Esta llamada envia los valores capturados al endpoint de login del backend.
+            const { isValid, user } = await loginUser(usernameOrEmail, password);
+            if (!isValid || !user) {
+                showAlert(loginForm, 'Credenciales invalidas', 'error');
             // Get all users from the API
             const users = await getUsers();
 
@@ -219,6 +239,7 @@ export function initAuthModal() {
             // Login success
             showAlert(loginForm, `Welcome, ${user.user_name}!`, 'success');
 
+            // Este sessionStorage guarda lo que retorno backend para mantener sesion.
             // save data in localStorage to persist session
             sessionStorage.setItem('loggedInUser', JSON.stringify(user));
 
@@ -229,7 +250,7 @@ export function initAuthModal() {
 
         } catch (error) {
             console.error(error);
-            showAlert(loginForm, 'Error logging in. Try again later.', 'error');
+            showAlert(loginForm, error.message || 'Error logging in. Try again later.', 'error');
         }
     });
 }
@@ -282,7 +303,7 @@ export function initAuthModal() {
 
         } catch (error) {
             console.error(error);
-            showAlert(registerForm, 'Error creating account. Try again later.', 'error');
+            showAlert(registerForm, error.message || 'Error creating account. Try again later.', 'error');
         }
     });
 }
