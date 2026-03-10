@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename)
 
 app.use(express.json())
 app.use(cors())
-app.use(express.static(path.join(__dirname, '..')))
+app.use(express.static(path.join(__dirname, '..', 'public')))
 app.use('/questions', routerQuestion)
 app.use('/users', routerUser)
 app.use('/api/questions', routerQuestion)
@@ -20,7 +20,7 @@ app.use('/api/users', routerUser)
 app.use('/profile', profileRouter)
 
 app.get('/', (_req, res) => {
-    res.sendFile(path.join(__dirname, '..', 'index.html'))
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'))
 })
 
 export default app

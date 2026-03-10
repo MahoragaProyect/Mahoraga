@@ -1,7 +1,9 @@
+const isLocalHost = ['localhost', '127.0.0.1'].includes(window.location.hostname);
+
 const API_ORIGIN =
-  window.location.port === '3000'
-    ? window.location.origin
-    : `${window.location.protocol}//${window.location.hostname}:3000`;
+  isLocalHost && window.location.port !== '3000'
+    ? `${window.location.protocol}//${window.location.hostname}`
+    : window.location.origin;
 
 const USERS_API_URL = `${API_ORIGIN}/api/users`;
 
