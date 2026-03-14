@@ -1,8 +1,11 @@
 import {
-  consultationQuestion,
-  createQuestion,
-  getInterviewQuestions as getInterviewQuestionsService,
-  getQuestionByLevel as getQuestionByLevelService
+    consultationQuestion,
+    createQuestion,
+    getInterviewQuestions as getInterviewQuestionsService,
+    getQuestionByLevel as getQuestionByLevelService,
+    updateQuestion as updateQuestionService,
+    newQuestionAnswered,
+    createQuestionInstances
 } from './question.service.js'
 
 export const getQuestions = async (req, res) => {
@@ -47,6 +50,46 @@ export const createQuestionRequest = async (req, res) => {
     }
 };
 
+export const updateQuestionRequest = async (req, res) => {
+    const { id_question } = req.params
+    const { id_topic, id_level, translations } = req.body
+
+    if (!id_question) {
+        return res.status(400).json({ error: 'Debes indicar id_question en la ruta.' })
+    }
+
+    if (!id_topic || !id_level || !Array.isArray(translations) || translations.length === 0) {
+        return res.status(400).json({
+            error: 'Debes enviar id_topic, id_level y translations (array no vacio).'
+        })
+    }
+
+    const hasInvalidTranslation = translations.some(
+        (item) => !item.id_language || !item.question_text
+    )
+    if (hasInvalidTranslation) {
+        return res.status(400).json({
+            error: 'Cada traduccion debe incluir id_language y question_text.'
+        })
+    }
+
+    try {
+        const updatedQuestion = await updateQuestionService(
+            id_question,
+            id_topic,
+            id_level,
+            translations
+        )
+        res.status(200).json({
+            message: 'The question was updated correctly.',
+            ...updatedQuestion
+        })
+    } catch (error) {
+        console.error('Error al actualizar la pregunta:', error)
+        res.status(500).json({ error: error.message })
+    }
+}
+
 export const getQuestionByLevel = async (req, res) => {
     const { id_level } = req.params
     const { topic: id_topic, id_language } = req.query
@@ -70,15 +113,23 @@ export const getInterviewQuestions = async (req, res) => {
     const {
         level,
         language,
+        id_user,
         technology = '',
         topic = '',
         limit = '5'
     } = req.query
 
+    if (!id_user) {
+        return res.status(400).json({
+            error: 'Debes enviar id_user para evitar que se repitan preguntas ya respondidas por el usuario.'
+        })
+    }
+
     try {
         const data = await getInterviewQuestionsService({
             id_level: level ? Number(level) : null,
             id_language: language ? Number(language) : null,
+            id_user: id_user ? String(id_user) : null,
             technology,
             topic,
             limit: Number(limit) || 5
@@ -90,5 +141,72 @@ export const getInterviewQuestions = async (req, res) => {
         res.status(500).json({
             error: 'Error al obtener preguntas de interview.'
         })
+    }
+}
+
+export const newInterviewQuestionReq = async (req, res) => {
+    const { id_session, id_questions } = req.body
+    const missingFields = []
+
+    console.log('newInterviewQuestionReq body', req.body);
+
+    if (!id_session) missingFields.push('id_session')
+    if (!Array.isArray(id_questions) || !id_questions.length) missingFields.push('id_questions')
+
+    if (missingFields.length > 0) {
+        return res.status(400).json({
+            error: 'Error submitting question instance, debes completar todos los campos.',
+            missingFields
+        })
+    }
+
+    try {
+        const numericIds = id_questions
+            .map((value) => Number(value))
+            .filter((value) => Number.isInteger(value) && value > 0)
+
+        if (!numericIds.length) {
+            return res.status(400).json({
+                error: 'No se enviaron preguntas válidas para crear las instancias.'
+            })
+        }
+
+        const stored = await createQuestionInstances(id_session, numericIds)
+
+        res.status(201).json({
+            message: 'La question instance se crea correctamente.',
+            created: stored
+        })
+    } catch (error) {
+        console.error('Error creating question instance', error)
+        res.status(500).json({ error: error.message })
+    }
+}
+
+export const newQuestionAnsweredReq = async (req, res) =>{
+    const { id_user, answer, score, feedback, answered_at } = req.body
+    const missingFields = [];
+
+    if (!id_user) missingFields.push('id_user')
+    if (!answer) missingFields.push('answer')
+    if (!score) missingFields.push('score')
+    if (!feedback) missingFields.push('feedback')
+    if (!answered_at) missingFields.push('answered_at')
+
+    if (missingFields.length > 0) {
+        return res.status(400).json({
+            error: 'Error submitting question answered, debes completar todos los campos.',
+            missingFields
+        })
+    }
+    try{
+        const newAnswered = await newQuestionAnswered(id_user, answer, score, feedback, answered_at)
+        res.status(201).json({
+            message: `the new answered question was created `,
+            questionanswered: newAnswered
+        })
+    }catch(error ) {
+        console.error(`Error , creating de new answered question`, error)
+        res.status(500).json({error: error.message})
     }
 }
